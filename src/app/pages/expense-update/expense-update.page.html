@@ -1,0 +1,175 @@
+@if (isUpdate) {
+<h1>Edition d'une dépense</h1>
+} @else {
+<h1>Saisie d'une dépense</h1>
+}
+
+<form [formGroup]="expenseForm" id="formExpense" class="formExpense">
+  @if (isUpdate) {
+  <div class="inputField">
+    <label for="numberInputId">Identifiant numérique</label>
+    <input
+      type="number"
+      id="numberInputId"
+      name="InputId"
+      formControlName="id"
+      min="1"
+    />
+  </div>
+  }
+
+  <div
+    class="inputField"
+    [ngClass]="{ 'has-error' : fExpense['amount'].touched && fExpense['amount'].errors}"
+  >
+    <label for="numberInputAmount">Montant *</label>
+    <input
+      type="number"
+      id="numberInputAmount"
+      name="InputAmount"
+      formControlName="amount"
+      min="1"
+    />
+    @if (fExpense['amount'].touched && fExpense['amount'].errors) {
+    <div class="inputError">
+      @if (fExpense['amount'].errors['required']){
+      <div>Le montant est obligatoire</div>
+      } @if (fExpense['amount'].errors['min']){
+      <div>Le montant doit être supérieur à 0</div>
+      } @if (fExpense['amount'].errors['isNotNumber']){
+      <div>Le montant doit être un entier</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div
+    class="inputField"
+    [ngClass]="{ 'has-error' : fExpense['purchasedOn'].touched && fExpense['purchasedOn'].errors}"
+  >
+    <label for="dateInputPurchasedOn">Date de la dépense *</label>
+    <input
+      type="date"
+      id="dateInputPurchasedOn"
+      name="InputPurchasedOn"
+      formControlName="purchasedOn"
+    />
+
+    @if (fExpense['purchasedOn'].touched && fExpense['purchasedOn'].errors) {
+    <div class="inputError">
+      @if (fExpense['purchasedOn'].errors['required']){
+      <div>La date de la dépense est obligatoire</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div
+    class="inputField"
+    [ngClass]="{ 'has-error' : fExpense['comment'].touched && fExpense['comment'].errors}"
+  >
+    <label for="textInputComment">Commentaire *</label>
+    <input
+      type="text"
+      id="textInputComment"
+      name="InputComment"
+      formControlName="comment"
+      maxlength="200"
+    />
+    @if (fExpense['comment'].touched && fExpense['comment'].errors) {
+    <div class="inputError">
+      @if (fExpense['comment'].errors['required']){
+      <div>Le commentaire est obligatoire</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="inputField">
+    <div>
+      <label for="rdbTrip">Déplacement</label>
+      <input
+        type="radio"
+        value="trip"
+        id="rdbTrip"
+        name="nature"
+        formControlName="nature"
+      />
+      <label for="rdbRestaurant">Restaurant</label>
+      <input
+        type="radio"
+        value="restaurant"
+        id="rdbRestaurant"
+        name="nature"
+        formControlName="nature"
+      />
+      <span>*</span>
+    </div>
+    @if (fExpense['nature'].touched && fExpense['nature'].errors) {
+    <div class="inputError">
+      @if (fExpense['nature'].errors['required']){
+      <div>La nature est obligatoire</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div
+    class="inputField"
+    *ngIf="fExpense['nature'].value === 'trip'"
+    [ngClass]="{ 'has-error' : fExpense['distance'].touched && fExpense['distance'].errors}"
+  >
+    <label for="numberInputDistance">Distance *</label>
+    <input
+      type="number"
+      id="numberInputDistance"
+      name="InputDistance"
+      formControlName="distance"
+      min="1"
+    />
+    @if (fExpense['distance'].touched && fExpense['distance'].errors) {
+    <div class="inputError">
+      @if (fExpense['distance'].errors['required']){
+      <div>La distance est obligatoire</div>
+      } @if (fExpense['distance'].errors['min']){
+      <div>La distance doit être supérieur à 0</div>
+      } @if (fExpense['distance'].errors['isNotNumber']){
+      <div>La distance doit être un entier</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div
+    class="inputField"
+    *ngIf="fExpense['nature'].value === 'restaurant'"
+    [ngClass]="{ 'has-error' : fExpense['invites'].touched && fExpense['invites'].errors}"
+  >
+    <label for="numberInputInvites">Nombre d'invité *</label>
+    <input
+      type="number"
+      id="numberInputInvites"
+      name="InputInvites"
+      formControlName="invites"
+      min="0"
+    />
+    @if (fExpense['invites'].touched && fExpense['invites'].errors) {
+    <div class="inputError">
+      @if (fExpense['invites'].errors['required']){
+      <div>Le nombre d'invité est obligatoire</div>
+      } @if (fExpense['invites'].errors['min']){
+      <div>Le nombre d'invité doit être supérieur à 0</div>
+      } @if (fExpense['invites'].errors['isNotNumber']){
+      <div>Le nombre d'invité doit être un entier</div>
+      }
+    </div>
+    }
+  </div>
+
+  <i>* champs obligatoires</i>
+
+  <div class="actions">
+    <button id="btnSaveExpense" (click)="saveExpense()">Enregistrer</button>
+    <button id="btnCancelExpense" (click)="cancelUpdate()">Annuler</button>
+  </div>
+</form>

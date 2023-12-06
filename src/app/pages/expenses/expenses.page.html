@@ -1,0 +1,37 @@
+<h1>Dépenses</h1>
+
+<button id="btnAddExpense" (click)="routeToExpenseAdd()">Ajouter</button>
+<table id="tableExpenses" class="tableExpenses">
+  <thead>
+    <tr>
+      <th>Identifiant numérique</th>
+      <th>Montant</th>
+      <th>Date de la dépense</th>
+      <th>Commentaire</th>
+      <th>Nature</th>
+      <th>Distance</th>
+      <th>Nombre d'invité</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (expense of expenses().expenses; track expense.id) {
+    <tr (click)="routeToExpenseUpdate(expense)">
+      <td>{{expense.id}}</td>
+      <td>{{expense.amount}}</td>
+      <td>{{expense.purchasedOn}}</td>
+      <td>{{expense.comment}}</td>
+      <td>{{expense.nature.lib}}</td>
+      <td>{{getDistance(expense.nature)}}</td>
+      <td>{{getInvites(expense.nature)}}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<app-pagination
+  [Page]="paginationParamsModel!.page"
+  [ItemCountAll]="expenses().count"
+  [ItemCountPage]="paginationParamsModel!.itemCountPage"
+  (pageChangeEvent)="onChangePage($event)"
+  (itemCountPageChangeEvent)="onChangeItemCountPage($event)"
+>
+</app-pagination>

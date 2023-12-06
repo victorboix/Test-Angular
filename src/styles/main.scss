@@ -1,0 +1,86 @@
+body {
+  background-color: #f5f5f5;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tableExpenses {
+  background-color: #fff;
+  width: fit-content;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  margin: 10px 0px;
+
+  & thead {
+    & tr {
+      border-bottom: 2px solid #f5f5f5;
+
+      & th {
+        padding: 10px;
+      }
+    }
+  }
+
+  & tbody {
+    & tr {
+      transition: 0.3s;
+      cursor: pointer;
+
+      & td {
+        padding: 5px 10px;
+      }
+    }
+
+    & tr:hover {
+      background-color: #d0f1fba3;
+    }
+  }
+}
+
+.formExpense {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: fit-content;
+  padding: 5px;
+
+  & .inputField {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  & .actions {
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.pagination {
+  & form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    & button,
+    .page,
+    select {
+      margin: 0px 5px;
+    }
+
+    & .page {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    & .currentPage {
+      font-weight: 600;
+    }
+  }
+}

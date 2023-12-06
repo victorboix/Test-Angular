@@ -1,0 +1,26 @@
+<div class="pagination">
+  <form [formGroup]="paginationForm">
+    <button (click)="previous()">Précedent</button>
+    @for(page of pages; track page) {
+    <div
+      class="page"
+      (click)="select(page)"
+      [ngClass]="{'currentPage': cPage.value === page}"
+    >
+      {{page}}
+    </div>
+    }
+
+    <button (click)="next()">Suivant</button>
+
+    <select
+      id="selectItemCountPage"
+      formControlName="itemCountPage"
+      (change)="changeItemCountPage()"
+    >
+      @for(o of listCount; track o) {
+      <option [ngValue]="o">{{o}}</option>
+      }
+    </select>
+  </form>
+</div>
